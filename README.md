@@ -1,7 +1,6 @@
-# My Online Bookstore
+# Data Structures
 
-This project is a simulation of an online bookstore implemented using TypeScript. It demonstrates the use of classes, encapsulation, inheritance, and polymorphism in an object-oriented program.
-
+This project demonstrates the implementation of various fundamental data structures and algorithms using TypeScript. The primary goal is to showcase understanding and practical application of stacks, queues, binary trees, graphs, and linked lists. Additionally, it includes solving specific algorithmic problems related to these data structures.
 ## Getting Started
 
 ### Prerequisites
