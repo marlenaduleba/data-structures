@@ -1,4 +1,4 @@
-import { Stack } from "./../../src/models/Stack";
+import { Stack } from "./../../src/data-structures/Stack";
 
 
 /**

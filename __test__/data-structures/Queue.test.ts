@@ -1,4 +1,4 @@
-import { Queue } from './../../src/models/Queue';
+import { Queue } from './../../src/data-structures/Queue';
 
 /**
  * Test suite for the Queue class.

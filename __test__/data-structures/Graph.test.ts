@@ -1,4 +1,4 @@
-import { Graph } from "./../../src/models/Graph";
+import { Graph } from "../../src/data-structures/Graph";
 
 /**
  * Test suite for the Graph class.

@@ -1,4 +1,4 @@
-import { LinkedList } from "./../../src/models/LinkedList";
+import { LinkedList } from "../../src/data-structures/LinkedList";
 
 /**
  * Test suite for the LinkedList class.

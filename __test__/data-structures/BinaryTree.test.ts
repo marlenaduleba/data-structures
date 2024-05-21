@@ -1,4 +1,4 @@
-import { BinaryTree } from "./../../src/models/BinaryTree";
+import { BinaryTree } from "./../../src/data-structures/BinaryTree";
 
 /**
  * Test suite for the BinaryTree class.
