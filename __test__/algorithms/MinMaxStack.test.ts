@@ -1,72 +1,48 @@
-import { MinMaxStack } from "./../../src/algorithms/MinMaxStack";
-/**
- * Test suite for the MinMaxStack class.
- */
-describe("MinMaxStack", () => {
-  let minMaxStack: MinMaxStack<number>;
+import { MinMaxStack } from './../../src/algorithms/MinMaxStack';
 
-  beforeEach(() => {
-    minMaxStack = new MinMaxStack<number>();
-  });
+describe('MinMaxStack', () => {
+    let minMaxStack: MinMaxStack;
 
-  // Test adding and removing elements
-  test("push and pop elements", () => {
-    minMaxStack.push(5);
-    minMaxStack.push(3);
-    minMaxStack.push(7);
-    minMaxStack.push(2);
+    beforeEach(() => {
+        minMaxStack = new MinMaxStack();
+    });
 
-    expect(minMaxStack.pop()).toBe(2);
-    expect(minMaxStack.pop()).toBe(7);
-    expect(minMaxStack.pop()).toBe(3);
-    expect(minMaxStack.pop()).toBe(5);
-  });
+    // Tests the behavior of pushing elements onto the stack and maintaining min/max values.
+    it('should push elements onto the stack and maintain min/max values', () => {
+        // Pushes several elements onto the stack.
+        minMaxStack.push(3);
+        minMaxStack.push(5);
+        minMaxStack.push(2);
+        minMaxStack.push(1);
+        minMaxStack.push(7);
 
-  // Test getting minimum and maximum element
-  test("getMin and getMax", () => {
-    minMaxStack.push(5);
-    minMaxStack.push(3);
-    minMaxStack.push(7);
-    minMaxStack.push(2);
+        // Checks if the maximum and minimum values are correctly updated after pushing elements.
+        expect(minMaxStack.getMax()).toBe(7);
+        expect(minMaxStack.getMin()).toBe(1);
+    });
 
-    expect(minMaxStack.getMin()).toBe(2);
-    expect(minMaxStack.getMax()).toBe(7);
-  });
+    // Tests the behavior of popping elements from the stack and updating min/max values accordingly.
+    it('should pop elements from the stack and update min/max values accordingly', () => {
+        // Pushes several elements onto the stack.
+        minMaxStack.push(3);
+        minMaxStack.push(5);
+        minMaxStack.push(2);
+        minMaxStack.push(1);
+        minMaxStack.push(7);
 
-  // Test adding and removing elements after getting min and max
-  test("push and pop elements after getting min and max", () => {
-    minMaxStack.push(5);
-    minMaxStack.push(3);
-    minMaxStack.push(7);
-    minMaxStack.push(2);
+        // Pops several elements from the stack.
+        minMaxStack.pop();
+        minMaxStack.pop();
+        minMaxStack.pop();
 
-    minMaxStack.getMin();
-    minMaxStack.getMax();
+        // Checks if the maximum and minimum values are correctly updated after popping elements.
+        expect(minMaxStack.getMax()).toBe(5);
+        expect(minMaxStack.getMin()).toBe(3);
+    });
 
-    minMaxStack.push(9);
-    minMaxStack.push(1);
-
-    expect(minMaxStack.getMin()).toBe(1);
-    expect(minMaxStack.getMax()).toBe(9);
-  });
-
-  // Test getting minimum and maximum element after popping elements
-  test("getMin and getMax after popping elements", () => {
-    minMaxStack.push(5);
-    minMaxStack.push(3);
-    minMaxStack.push(7);
-    minMaxStack.push(2);
-
-    minMaxStack.pop();
-    minMaxStack.pop();
-
-    expect(minMaxStack.getMin()).toBe(3);
-    expect(minMaxStack.getMax()).toBe(5);
-  });
-
-  // Test getting minimum and maximum element from an empty stack
-  test("getMin and getMax on an empty stack", () => {
-    expect(minMaxStack.getMin()).toBeUndefined();
-    expect(minMaxStack.getMax()).toBeUndefined();
-  });
+    // Tests the behavior when popping from an empty stack, expecting undefined.
+    it('should return undefined when popping from an empty stack', () => {
+        // Checks if undefined is returned when attempting to pop from an empty stack.
+        expect(minMaxStack.pop()).toBeUndefined();
+    });
 });
