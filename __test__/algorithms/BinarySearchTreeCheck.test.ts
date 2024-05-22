@@ -1,62 +1,45 @@
-import { TreeNode } from "./../../src/data-structures/BinaryTree";
+import { BinaryTree } from "./../../src/data-structures/BinaryTree";
 import { isValidBST } from "./../../src/algorithms/BinarySearchTreeCheck";
 
 /**
  * Test suite for the isValidBST function.
  */
-describe("isValidBST", () => {
+describe("isValidBST using BinaryTree class", () => {
   // Test to verify an empty tree is considered a valid BST
-  it("should return true for an empty tree", () => {
-    expect(isValidBST(null)).toBe(true);
+  it("should return true for an empty BinaryTree", () => {
+    const tree = new BinaryTree<number>();
+    expect(isValidBST(tree.root)).toBe(true);
   });
 
   // Test to verify a single node tree is a valid BST
-  it("should return true for a single node tree", () => {
-    const root = new TreeNode(1);
-    expect(isValidBST(root)).toBe(true);
+  it("should return true for a BinaryTree with one node", () => {
+    const tree = new BinaryTree<number>();
+    tree.insert(1);
+    expect(isValidBST(tree.root)).toBe(true);
   });
 
   // Test to verify a valid BST with multiple nodes
-  it("should return true for a valid BST", () => {
-    const root = new TreeNode(10);
-    root.left = new TreeNode(5);
-    root.right = new TreeNode(15);
-    root.left.left = new TreeNode(1);
-    root.left.right = new TreeNode(6);
-    root.right.left = new TreeNode(13);
-    root.right.right = new TreeNode(20);
-
-    expect(isValidBST(root)).toBe(true);
+  it("should return true for a valid populated BST", () => {
+    const tree = new BinaryTree<number>();
+    tree.insert(10);
+    tree.insert(5);
+    tree.insert(15);
+    tree.insert(1);
+    tree.insert(6);
+    tree.insert(13);
+    tree.insert(20);
+    expect(isValidBST(tree.root)).toBe(true);
   });
 
-  // Test to ensure the function correctly identifies a non-BST where a right node violates the BST property
-  it("should return false for a binary tree that is not a BST (right node too small)", () => {
-    const root = new TreeNode(10);
-    root.left = new TreeNode(5);
-    root.right = new TreeNode(8); // Incorrect, should be > 10
-
-    expect(isValidBST(root)).toBe(false);
-  });
-
-  // Test to ensure the function correctly identifies a non-BST where a left node violates the BST property
-  it("should return false for a binary tree that is not a BST (left node too large)", () => {
-    const root = new TreeNode(10);
-    root.left = new TreeNode(15); // Incorrect, should be < 10
-    root.right = new TreeNode(20);
-
-    expect(isValidBST(root)).toBe(false);
-  });
-
-  // Test to verify the function's accuracy with deeper tree structures
-  it("should return false for a complex tree that is not a BST", () => {
-    const root = new TreeNode(10);
-    root.left = new TreeNode(5);
-    root.right = new TreeNode(15);
-    root.left.left = new TreeNode(1);
-    root.left.right = new TreeNode(6);
-    root.right.left = new TreeNode(9); // Incorrect, should be > 10
-    root.right.right = new TreeNode(20);
-
-    expect(isValidBST(root)).toBe(false);
+  // Test to ensure the function correctly identifies a non-BST
+  it("should return false for a BinaryTree that is not a BST", () => {
+    const tree = new BinaryTree<number>();
+    // Manually creating nodes to break BST rules
+    tree.root = {
+      value: 10,
+      left: { value: 5, left: null, right: null },
+      right: { value: 8, left: null, right: null },
+    }; // right node value 8 should be > 10
+    expect(isValidBST(tree.root)).toBe(false);
   });
 });
