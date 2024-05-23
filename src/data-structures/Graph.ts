@@ -1,31 +1,41 @@
 /**
- * Class representing a graph.
+ * Class representing a graph with weighted edges.
  */
 export class Graph {
-  private adjacencyList: { [key: string]: string[] } = {};
+  private adjacencyList: { [key: string]: { [neighbor: string]: number } } = {};
 
   /**
    * Adds a vertex to the graph.
+   * 
    * @param {string} vertex - The name of the vertex to add.
    */
   addVertex(vertex: string): void {
     if (!this.adjacencyList[vertex]) {
-      this.adjacencyList[vertex] = [];
+      this.adjacencyList[vertex] = {};
     }
   }
 
   /**
    * Adds an edge between two vertices in the graph.
-   * @param {string} vertex1 - The first vertex.
+   * 
+  //  * @param {string} vertex1 - The first vertex.
    * @param {string} vertex2 - The second vertex.
+   * @param {number} weight - The weight of the edge.
    */
-  addEdge(vertex1: string, vertex2: string): void {
-    this.adjacencyList[vertex1].push(vertex2);
-    this.adjacencyList[vertex2].push(vertex1);
+  addEdge(vertex1: string, vertex2: string, weight: number): void {
+    if (!this.adjacencyList[vertex1]) {
+      this.addVertex(vertex1);
+    }
+    if (!this.adjacencyList[vertex2]) {
+      this.addVertex(vertex2);
+    }
+    this.adjacencyList[vertex1][vertex2] = weight;
+    this.adjacencyList[vertex2][vertex1] = weight;
   }
 
   /**
    * Performs a depth-first search (DFS) starting from a given vertex.
+   * 
    * @param {string} start - The starting vertex.
    * @returns {string[]} - The vertices visited during the DFS, in the order they were visited.
    */
@@ -39,7 +49,7 @@ export class Graph {
       const vertex = stack.pop() as string;
       result.push(vertex);
 
-      this.adjacencyList[vertex].forEach((neighbor) => {
+      Object.keys(this.adjacencyList[vertex]).forEach((neighbor) => {
         if (!visited[neighbor]) {
           visited[neighbor] = true;
           stack.push(neighbor);
@@ -52,6 +62,7 @@ export class Graph {
 
   /**
    * Performs a breadth-first search (BFS) starting from a given vertex.
+   * 
    * @param {string} start - The starting vertex.
    * @returns {string[]} - The vertices visited during the BFS, in the order they were visited.
    */
@@ -65,7 +76,7 @@ export class Graph {
       const vertex = queue.shift() as string;
       result.push(vertex);
 
-      this.adjacencyList[vertex].forEach((neighbor) => {
+      Object.keys(this.adjacencyList[vertex]).forEach((neighbor) => {
         if (!visited[neighbor]) {
           visited[neighbor] = true;
           queue.push(neighbor);
@@ -74,5 +85,14 @@ export class Graph {
     }
 
     return result;
+  }
+
+  /**
+   * Returns the adjacency list representation of the graph.
+   * 
+   * @returns {Object} - The adjacency list representation of the graph.
+   */
+  getAdjacencyList(): { [key: string]: { [neighbor: string]: number } } {
+    return this.adjacencyList;
   }
 }

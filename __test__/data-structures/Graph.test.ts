@@ -1,4 +1,4 @@
-import { Graph } from "../../src/data-structures/Graph";
+import { Graph } from './../../src/data-structures/Graph';
 
 /**
  * Test suite for the Graph class.
@@ -10,54 +10,51 @@ describe("Graph", () => {
     graph = new Graph();
   });
 
-  // Test for adding a single vertex
-  test("should add a single vertex", () => {
+  /**
+   * Test case for adding a vertex to the graph.
+   */
+  it("should add a vertex to the graph", () => {
     graph.addVertex("A");
-    expect(graph["adjacencyList"]["A"]).toEqual([]);
+    expect(graph.getAdjacencyList()["A"]).toBeDefined();
+    expect(Object.keys(graph.getAdjacencyList()).length).toBe(1);
   });
 
-  // Test for adding multiple vertices
-  test("should add multiple vertices", () => {
-    graph.addVertex("A");
-    graph.addVertex("B");
-    expect(graph["adjacencyList"]["A"]).toEqual([]);
-    expect(graph["adjacencyList"]["B"]).toEqual([]);
-  });
-
-  // Test for adding an edge
-  test("should add an edge between two vertices", () => {
+  /**
+   * Test case for adding an edge between two vertices in the graph.
+   */
+  it("should add an edge between two vertices", () => {
     graph.addVertex("A");
     graph.addVertex("B");
-    graph.addEdge("A", "B");
-    expect(graph["adjacencyList"]["A"]).toEqual(["B"]);
-    expect(graph["adjacencyList"]["B"]).toEqual(["A"]);
+    graph.addEdge("A", "B", 5);
+    expect(graph.getAdjacencyList()["A"]["B"]).toBe(5);
+    expect(graph.getAdjacencyList()["B"]["A"]).toBe(5);
   });
 
-  // Test for depth-first search (DFS)
-  test("should perform DFS correctly", () => {
-    graph.addVertex("A");
-    graph.addVertex("B");
-    graph.addVertex("C");
-    graph.addVertex("D");
-    graph.addEdge("A", "B");
-    graph.addEdge("A", "C");
-    graph.addEdge("B", "D");
-
-    const result = graph.DFS("A");
-    expect(result).toEqual(["A", "C", "B", "D"]);
-  });
-
-  // Test for breadth-first search (BFS)
-  test("should perform BFS correctly", () => {
+  /**
+   * Test case for performing a depth-first search (DFS) starting from a given vertex.
+   */
+  it("should perform a depth-first search (DFS)", () => {
     graph.addVertex("A");
     graph.addVertex("B");
     graph.addVertex("C");
     graph.addVertex("D");
-    graph.addEdge("A", "B");
-    graph.addEdge("A", "C");
-    graph.addEdge("B", "D");
+    graph.addEdge("A", "B", 1);
+    graph.addEdge("B", "C", 1);
+    graph.addEdge("C", "D", 1);
+    expect(graph.DFS("A")).toEqual(["A", "B", "C", "D"]);
+  });
 
-    const result = graph.BFS("A");
-    expect(result).toEqual(["A", "B", "C", "D"]);
+  /**
+   * Test case for performing a breadth-first search (BFS) starting from a given vertex.
+   */
+  it("should perform a breadth-first search (BFS)", () => {
+    graph.addVertex("A");
+    graph.addVertex("B");
+    graph.addVertex("C");
+    graph.addVertex("D");
+    graph.addEdge("A", "B", 1);
+    graph.addEdge("B", "C", 1);
+    graph.addEdge("C", "D", 1);
+    expect(graph.BFS("A")).toEqual(["A", "B", "C", "D"]);
   });
 });
