@@ -2,7 +2,7 @@
  * Represents a node in a singly linked list.
  * @template T - The type of the value stored in the node.
  */
-class ListNode<T> {
+export class ListNode<T> {
   value: T;
   next: ListNode<T> | null = null;
 
@@ -107,5 +107,13 @@ export class LinkedList<T> {
       current = current.next;
     }
     return count;
+  }
+
+  /**
+   * Gets the head node of the list.
+   * @returns {ListNode<T> | null} - The head node of the list, or null if the list is empty.
+   */
+  getHead(): ListNode<T> | null {
+    return this.head;
   }
 }

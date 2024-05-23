@@ -95,4 +95,15 @@ describe("LinkedList", () => {
     const node = list.search(4);
     expect(node).toBeNull();
   });
+
+  // Checks if the getHead method returns the head of the list
+  test("should return the head of the list", () => {
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+
+    const head = list.getHead();
+    expect(head).not.toBeNull();
+    expect(head!.value).toBe(1);
+  });
 });
